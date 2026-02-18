@@ -1,5 +1,5 @@
 
-export default function ChatList({ chats = [], onAddChat }) {
+export default function ChatList({ chats = [], onAddChat, selectedChat, onSelectChat }) {
   const handleAddChat = () => {
     const name = prompt("Nom du contact:");
     const message = prompt("Message:");
@@ -11,9 +11,9 @@ export default function ChatList({ chats = [], onAddChat }) {
   return (
     <div className="chat-list">
       <h2>Messages</h2>
-      {chats.map((chat, index) => (
-        <a href="#" key={chat.id}>
-          <div className={`chat-item ${index === 0 ? "active" : ""}`}>
+      {chats.map((chat) => (
+        <a href="#" key={chat.id} onClick={(e) => { e.preventDefault(); onSelectChat(chat); }}>
+          <div className={`chat-item ${selectedChat?.id === chat.id ? "active" : ""}`}>
             <strong>{chat.name}</strong>
             <p>{chat.message}</p>
           </div>

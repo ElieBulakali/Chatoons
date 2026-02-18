@@ -8,6 +8,7 @@ export default function App() {
     { id: 1, name: "Shane Martinez", message: "On my way home..." },
     { id: 2, name: "Katie Keller", message: "I'm watching Friends..." }
   ]);
+  const [selectedChat, setSelectedChat] = useState(chats[0]);
 
   const addChat = (name, message) => {
     setChats([...chats, { id: Date.now(), name, message }]);
@@ -15,8 +16,8 @@ export default function App() {
 
   return (
     <div className="app">
-      <ChatList chats={chats} onAddChat={addChat} />
-      <ChatWindow />
+      <ChatList chats={chats} onAddChat={addChat} selectedChat={selectedChat} onSelectChat={setSelectedChat} />
+      <ChatWindow selectedChat={selectedChat} />
     </div>
   );
 }
