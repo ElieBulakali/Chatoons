@@ -8,14 +8,30 @@ export default function ChatList({ chats = [], onAddChat, selectedChat, onSelect
     }
   };
 
+  const getInitials = (name) => {
+    return name.split(' ').map(word => word[0]).join('').toUpperCase().slice(0, 2);
+  };
+
+  const getAvatarColor = (index) => {
+    const colors = ['#FF6B6B', '#4ECDC4', '#45B7D1', '#FFA07A', '#98D8C8', '#F7DC6F'];
+    return colors[index % colors.length];
+  };
+
   return (
     <div className="chat-list">
       <h2>Messages</h2>
-      {chats.map((chat) => (
+      {chats.map((chat, index) => (
         <a href="#" key={chat.id} onClick={(e) => { e.preventDefault(); onSelectChat(chat); }}>
           <div className={`chat-item ${selectedChat?.id === chat.id ? "active" : ""}`}>
-            <strong>{chat.name}</strong>
-            <p>{chat.message}</p>
+            <div className="chat-item-content">
+              <div className="avatar" style={{ backgroundColor: getAvatarColor(index) }}>
+                {getInitials(chat.name)}
+              </div>
+              <div className="chat-info">
+                <strong>{chat.name}</strong>
+                <p>{chat.message}</p>
+              </div>
+            </div>
           </div>
         </a>
       ))}
